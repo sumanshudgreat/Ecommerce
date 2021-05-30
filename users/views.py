@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CartForm,SearchForm
 from django.db.models import Sum
+from django.contrib import messages
 
 # Create your views here.
 def register(request):
@@ -15,9 +16,10 @@ def register(request):
         if user.is_valid():
             user.save()
             username = user.cleaned_data.get('username')
-            
+            messages.success(request,'Successfully Registered')
             return redirect('login')
         else:
+            messages.error(request,'Failed to register')
             return render(request,'register.html',{'form':user})
     user = UserCreationForm()
     return render(request,'register.html',{'form':user})
@@ -34,6 +36,7 @@ def cart(request):
 def remove(request,pk):
     instance=Cart.objects.get(order_id=pk)
     instance.delete()
+    messages.success(request,'Removed from Cart')
     return redirect('cart')
 
 @login_required
@@ -63,6 +66,9 @@ def product(request,pk):
             m.cost = float("{:.2f}".format(inst.price*mess.cleaned_data.get("quantity")))
             print(m.cost)
             m.save()
+            messages.success(request,'Product added to Cart')
+        else:
+            messages.error(request,'Failed to add')
     form = CartForm(initial={'quantity':1})
     return render(request,'product.html',{'product':product,'form':form})
 
@@ -79,6 +85,7 @@ def buy(request,pk):
         s.time = timezone.now()
         s.save()
         x.delete()
+        messages.success(request,'Your order is on the way! Happy shopping')
     print(orders)
     return redirect('cart')
 
@@ -92,6 +99,7 @@ def my_orders(request):
 def cancel_order(request,pk):
     orders = Order.objects.get(order_id=pk)
     orders.delete()
+    messages.success(request,'Order Cancelled')
     return redirect('orders')
 
 @login_required
@@ -101,6 +109,8 @@ def search(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             search_result = Product.objects.filter(name__icontains=username)
+            if search_result == None:
+                messages.error(request,'No product found')
             return render(request,'search.html',{'search_result':search_result,'form':form})
     else:
         form = SearchForm()
@@ -110,6 +120,7 @@ def search(request):
 def search_from_any_page(request):
     search_text = request.POST.get('search_text',None)
     if search_text == None:
+        messages.error(request,'No product found')
         return redirect('search')
     else:
         form = SearchForm()
