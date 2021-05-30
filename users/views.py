@@ -105,3 +105,13 @@ def search(request):
     else:
         form = SearchForm()
         return render(request,'search.html',{'form':form})
+
+@login_required
+def search_from_any_page(request):
+    search_text = request.POST.get('search_text',None)
+    if search_text == None:
+        return redirect('search')
+    else:
+        form = SearchForm()
+        search_result = Product.objects.filter(name__icontains=search_text)
+        return render(request,'search.html',{'search_result':search_result,'form':form})

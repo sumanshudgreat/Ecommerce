@@ -24,8 +24,8 @@
                   <a class="nav-link" href="{% url 'search' %}" style="margin-left: 20px;">Search</a>
                 </li>
               </ul>
-              <form action="{% url 'search' %}" class="form-inline my-2 my-lg-0" method="GET" >{% csrf_token %}
-                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+              <form action="{% url 'search_from_any_page' %}" class="form-inline my-2 my-lg-0" method="POST" >{% csrf_token %}
+                <input id='search_text' name='search_text' class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 30px;">Search</button>
              
                 {% if user.is_authenticated %}

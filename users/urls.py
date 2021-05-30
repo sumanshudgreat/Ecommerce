@@ -1,7 +1,7 @@
 from django.urls import path
 
 from django.contrib.auth.views import LoginView,LogoutView
-from .views import register,homepage,category,product,cart,remove,buy,my_orders,cancel_order,search
+from .views import register,homepage,category,product,cart,remove,buy,my_orders,cancel_order,search,search_from_any_page
 
 urlpatterns = [
     path('homepage/product/<int:pk>/',product,name='product'),
@@ -16,4 +16,5 @@ urlpatterns = [
     path('my_orders/',my_orders,name='orders'),
     path('my_orders/<int:pk>/',cancel_order,name='cancel_order'),
     path('search/',search,name='search'),
+    path('search_from_any_page/',search_from_any_page,name='search_from_any_page'),
 ]
