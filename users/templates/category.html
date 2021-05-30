@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for y in category %}
+    <h1>{{y.name}}</h1>
+    {% endfor %}
+    <ol>
+    {% for x in product %}
+    <a href="{% url 'product' pk=x.product_id %}">
+    <li>{{x.name}}</li>
+    <img src="{{MEDIA_ROOT}}/media/{{x.photo}}"/>
+    </a>
+    {{x.price}}
+    {% endfor %}
+    </ol>
+{% endblock %}

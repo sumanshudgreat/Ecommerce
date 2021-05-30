@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<ol>
+    <h1>My orders</h1>
+    
+    {% for i in orders %}
+        <li>
+            
+            {{i.product_id}}</a>&emsp;{{i.quantity}}&emsp;{{i.cost}}
+            <form action="{% url 'cancel_order' pk=i.order_id %}" class="form-inline my-2 my-lg-0", method="POST">{% csrf_token %}
+                <button type="submit", class="btn btn-outline-success my-2 my-sm-0">Cancel</button>
+            </form>
+        </li>
+    {% endfor %}
+    
+</ol>
+{% endblock %}
