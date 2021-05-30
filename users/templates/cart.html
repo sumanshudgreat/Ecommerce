@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<ol>
+    <h1>Cart</h1>
+    {% for i in x %}
+        <li>
+            <a href="{% url 'product' pk=i.prodect_id_id %}">
+                <img src="{{MEDIA_ROOT}}/media/{{i.photo}}"/>
+            {{i.prodect_id}}</a>&emsp;<br><br>Quantity : {{i.quantity}}&emsp;<br><br>₹ : {{i.cost}}<br><br>
+            <form action="{% url 'remove' pk=i.order_id %}" class="form-inline my-2 my-lg-0", method="POST">{% csrf_token %}
+                <button type="submit", class="btn btn-outline-success my-2 my-sm-0">Remove</button>
+            </form>
+        </li>
+    {% endfor %}
+    <br>
+    <p>
+        Total : {{sum.cost__sum}}
+    </p>
+    {% if x %}
+    <form action="{% url 'buy' pk=x.first.user_id_id %}" class="form-inline my-2 my-lg-0", method="POST">{% csrf_token %}
+    <button type="submit", class="btn btn-outline-success my-2 my-sm-0">Buy all</button>
+            </form>
+    {% endif %}
+</ol>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <style>
+        body{
+            background-color: antiquewhite;
+        }
+        form{
+            max-width: 250px;
+            margin-left: 350px;
+            margin-top: 100px;
+            
+          }
+    </style>
+</head>
+<body>
+{% if messages %}
+    {% for message in messages %}
+    <div style="color: red;">{{message}}</div>
+    {% endfor %}
+{% endif %}
+<div class="container">
+{% if user.is_authenticated %}
+    <p>You are already logged in</p>
+{% else %}
+    <form method="POST" class="form-group">{% csrf_token %}
+    {{form}}
+    <br><br>
+    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 50px;">Log In</button>
+    </form>
+{% endif %}
+</div>
+{% endblock content %}
+</body>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Search Product : </h3>
+<form method="POST">{% csrf_token %}
+    {{form}}
+    <button type="submit">Search</button>
+</form>
+<h1>Search result : </h1>
+{% for f in search_result %}
+    <p><a href="{% url 'product' pk=f.product_id %}">{{f.name}}</a></p>
+{% endfor %}
+{% endblock content %}

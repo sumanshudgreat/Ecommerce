@@ -1,0 +1,42 @@
+<head>
+    <style>
+        body{
+            margin: 10px;
+            padding: 10px;
+        }
+        .box{
+            position: absolute;
+            top:35%;
+            left: 20%;
+            transform: translate(-20%,-20%);
+            display: flex;
+        }
+        .box .content{
+            padding-left: 120px;
+            padding-top: 40px;
+        }
+        
+        
+    </style>
+</head>
+{% extends 'base.html' %}
+{% block content %}
+<div class="Box">
+    {% for x in product %}
+    <div class="col-3">
+        <img src="{{MEDIA_ROOT}}/media/{{x.photo}}" style="height: 300px;"/>
+    </div>
+    <div class="content">
+    <p><h2>{{x.name}}</h2><br></p>
+    <p><h6>₹ : {{x.price}}</h6></p>
+    <p><h6>Discount : {{x.discount}}</h6></p>
+    <p><h6> details : {{x.description}}</h6></p><br>
+    
+    <form class="form-inline my-2 my-lg-0", method="POST">{% csrf_token %}
+        {{form}}
+        <button type="submit", class="btn btn-outline-success my-2 my-sm-0">Add to cart</button>
+    </form>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}
