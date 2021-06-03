@@ -85,7 +85,7 @@ def buy(request,pk):
         s.time = timezone.now()
         s.save()
         x.delete()
-        messages.success(request,'Your order is on the way! Happy shopping')
+    messages.success(request,'Your order is on the way! Happy shopping')
     print(orders)
     return redirect('cart')
 
