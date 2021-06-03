@@ -7,9 +7,9 @@
             background-color: antiquewhite;
         }
         form{
-            
-            margin-left: 350px;
-            margin-top: 100px;
+            max-width: 550px;
+            margin-left: 300px;
+            margin-top: -480px;
             
           }
     </style>
@@ -22,14 +22,16 @@
 {% endif %}
 <div class="container">
 {% if user.is_authenticated %}
-    <p>You are already logged in</p>
-    <h3>Welcome to shopping website</h3>
-    <h3>Successful</h3>
+    <p style="text-align: center;">You are already logged in</p>
+    <h3 style="text-align: center;">Welcome to shopping website</h3>
+    <p style="text-align: center;">Click on Shopping.IN to continue shopping</p>
+    <img src="media/pics/42.jpg" style="width: 60%;margin-left:250px;"> 
 {% else %}
+<img src="media/pics/43.png" style="width: 80%;margin-left:150px;">
     <form method="POST" class="form-group">{% csrf_token %}
     {{form}}
-    <br><br>
-    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 50px;">Log In</button>
+    
+    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 550px;margin-top:500px;width:25%;margin-bottom:2000px;">Log In</button>
     </form>
 {% endif %}
 </div>
